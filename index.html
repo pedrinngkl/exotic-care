@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExoticCare - Cuidadores Especializados em Animais Exóticos</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="nav">
+                <div class="logo">
+                    <h1>ExoticCare</h1>
+                </div>
+                <nav class="nav-links">
+                    <a href="#home">Início</a>
+                    <a href="#specialists">Especialistas</a>
+                    <a href="#about">Sobre</a>
+                    <button class="btn-secondary" onclick="openSpecialistLogin()">Área do Especialista</button>
+                    <button class="btn-primary">Contratar Agora</button>
+                </nav>
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#home">Início</a>
+        <a href="#specialists">Especialistas</a>
+        <a href="#about">Sobre</a>
+        <button class="btn-secondary" onclick="openSpecialistLogin()">Área do Especialista</button>
+        <button class="btn-primary">Contratar Agora</button>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Cuidadores Especializados em Animais Exóticos</h1>
+                    <p>Conectamos você com profissionais certificados e experientes para o cuidado especializado do seu animal exótico. Segurança, expertise e confiança em cada serviço.</p>
+                    <button class="btn-primary btn-large" onclick="showAnimalSelection()">Encontrar Especialista</button>
+                </div>
+                <div class="hero-image">
+                    <img src="/placeholder.svg?height=400&width=500" alt="Especialista com animais exóticos">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Animal Selection Modal -->
+    <div class="modal" id="animalModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Selecione seus animais exóticos</h2>
+                <button class="close-btn" onclick="closeAnimalModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="animal-grid">
+                    <div class="animal-card" data-animal="reptil">
+                        <div class="animal-icon">🦎</div>
+                        <h3>Répteis</h3>
+                        <p>Iguanas, cobras, lagartos, tartarugas</p>
+                    </div>
+                    <div class="animal-card" data-animal="ave">
+                        <div class="animal-icon">🦜</div>
+                        <h3>Aves Exóticas</h3>
+                        <p>Papagaios, araras, cacatuas, canários</p>
+                    </div>
+                    <div class="animal-card" data-animal="mamifero">
+                        <div class="animal-icon">🐒</div>
+                        <h3>Mamíferos Exóticos</h3>
+                        <p>Primatas, furões, chinchilas</p>
+                    </div>
+                    <div class="animal-card" data-animal="aquatico">
+                        <div class="animal-icon">🐠</div>
+                        <h3>Aquáticos</h3>
+                        <p>Peixes tropicais, anfíbios</p>
+                    </div>
+                    <div class="animal-card" data-animal="aracnideo">
+                        <div class="animal-icon">🕷️</div>
+                        <h3>Aracnídeos</h3>
+                        <p>Tarântulas, escorpiões</p>
+                    </div>
+                    <div class="animal-card" data-animal="inseto">
+                        <div class="animal-icon">🦗</div>
+                        <h3>Insetos</h3>
+                        <p>Mantis, besouros, grilos</p>
+                    </div>
+                </div>
+                <div class="location-input">
+                    <label for="location">Sua localização:</label>
+                    <input type="text" id="location" placeholder="Digite seu endereço ou CEP">
+                </div>
+                <button class="btn-primary" onclick="findSpecialists()">Buscar Especialistas</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Specialists Section -->
+    <section class="specialists" id="specialists">
+        <div class="container">
+            <h2>Especialistas Verificados</h2>
+            <div class="specialists-grid" id="specialistsList">
+                <!-- Specialists will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Specialist Profile Modal -->
+    <div class="modal" id="specialistModal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h2 id="specialistName">Dr. Marina Silva</h2>
+                <button class="close-btn" onclick="closeSpecialistModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="specialist-profile">
+                    <div class="specialist-info">
+                        <img id="specialistPhoto" src="/placeholder.svg?height=120&width=120" alt="Foto do especialista">
+                        <div class="specialist-details">
+                            <div class="rating">
+                                <span class="stars">★★★★★</span>
+                                <span id="specialistRating">4.9 (127 avaliações)</span>
+                            </div>
+                            <div class="badges">
+                                <span class="badge verified">✓ Verificado</span>
+                                <span class="badge certified">🎓 Certificado</span>
+                            </div>
+                            <p id="specialistBio">Veterinária especializada em répteis com 8 anos de experiência. Mestrado em Medicina Veterinária pela USP.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="pricing-plans">
+                        <h3>Planos de Cuidado</h3>
+                        <div class="plans-grid">
+                            <div class="plan-card" data-plan="daily">
+                                <h4>Diário</h4>
+                                <div class="price">R$ 80<span>/dia</span></div>
+                                <ul>
+                                    <li>Visita domiciliar</li>
+                                    <li>Alimentação especializada</li>
+                                    <li>Relatório diário</li>
+                                </ul>
+                            </div>
+                            <div class="plan-card popular" data-plan="weekly">
+                                <div class="popular-badge">Mais Popular</div>
+                                <h4>Semanal</h4>
+                                <div class="price">R$ 500<span>/semana</span></div>
+                                <div class="discount">15% de desconto</div>
+                                <ul>
+                                    <li>7 visitas incluídas</li>
+                                    <li>Monitoramento de saúde</li>
+                                    <li>Relatórios detalhados</li>
+                                    <li>Suporte 24h</li>
+                                </ul>
+                            </div>
+                            <div class="plan-card" data-plan="monthly">
+                                <h4>Mensal</h4>
+                                <div class="price">R$ 1.800<span>/mês</span></div>
+                                <div class="discount">25% de desconto</div>
+                                <ul>
+                                    <li>Cuidado completo</li>
+                                    <li>Consultas veterinárias</li>
+                                    <li>Emergências incluídas</li>
+                                    <li>Relatório mensal completo</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="btn-primary btn-large" onclick="proceedToCheckout()">Contratar Especialista</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="modal" id="checkoutModal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h2>Finalizar Contratação</h2>
+                <button class="close-btn" onclick="closeCheckoutModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="checkout-content">
+                    <div class="checkout-summary">
+                        <h3>Resumo do Serviço</h3>
+                        <div class="service-details">
+                            <p><strong>Especialista:</strong> <span id="checkoutSpecialist">Dr. Marina Silva</span></p>
+                            <p><strong>Plano:</strong> <span id="checkoutPlan">Semanal</span></p>
+                            <p><strong>Valor:</strong> <span id="checkoutPrice">R$ 500</span></p>
+                            <p><strong>Animal:</strong> <span id="checkoutAnimal">Réptil</span></p>
+                        </div>
+                    </div>
+                    
+                    <div class="checkout-form">
+                        <h3>Informações de Pagamento</h3>
+                        <form id="paymentForm">
+                            <div class="form-group">
+                                <label for="cardNumber">Número do Cartão</label>
+                                <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" required>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="expiryDate">Validade</label>
+                                    <input type="text" id="expiryDate" placeholder="MM/AA" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cvv">CVV</label>
+                                    <input type="text" id="cvv" placeholder="123" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="cardName">Nome no Cartão</label>
+                                <input type="text" id="cardName" placeholder="Nome completo" required>
+                            </div>
+                        </form>
+                        
+                        <div class="payment-info">
+                            <p><strong>💳 Pagamento Seguro:</strong> Processado via intermediação segura</p>
+                            <p><strong>⏰ Liberação:</strong> Pagamento liberado ao especialista após 3 dias do serviço</p>
+                        </div>
+                        
+                        <button class="btn-primary btn-large" onclick="processPayment()">Confirmar Pagamento</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Specialist Login Modal -->
+    <div class="modal" id="specialistLoginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Área do Especialista</h2>
+                <button class="close-btn" onclick="closeSpecialistLoginModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="login-tabs">
+                    <button class="tab-btn active" onclick="showLoginTab()">Entrar</button>
+                    <button class="tab-btn" onclick="showRegisterTab()">Cadastrar</button>
+                </div>
+                
+                <div class="tab-content" id="loginTab">
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label for="loginEmail">Email</label>
+                            <input type="email" id="loginEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="loginPassword">Senha</label>
+                            <input type="password" id="loginPassword" required>
+                        </div>
+                        <button type="submit" class="btn-primary">Entrar</button>
+                    </form>
+                </div>
+                
+                <div class="tab-content hidden" id="registerTab">
+                    <form id="registerForm">
+                        <div class="form-group">
+                            <label for="registerName">Nome Completo</label>
+                            <input type="text" id="registerName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="registerEmail">Email</label>
+                            <input type="email" id="registerEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="registerPassword">Senha</label>
+                            <input type="password" id="registerPassword" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="registerSpecialty">Especialidade</label>
+                            <select id="registerSpecialty" required>
+                                <option value="">Selecione sua especialidade</option>
+                                <option value="reptil">Répteis</option>
+                                <option value="ave">Aves Exóticas</option>
+                                <option value="mamifero">Mamíferos Exóticos</option>
+                                <option value="aquatico">Animais Aquáticos</option>
+                                <option value="aracnideo">Aracnídeos</option>
+                                <option value="inseto">Insetos</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn-primary">Cadastrar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>ExoticCare</h3>
+                    <p>Conectando donos de animais exóticos com especialistas certificados.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Serviços</h4>
+                    <ul>
+                        <li><a href="#">Cuidadores de Répteis</a></li>
+                        <li><a href="#">Especialistas em Aves</a></li>
+                        <li><a href="#">Mamíferos Exóticos</a></li>
+                        <li><a href="#">Animais Aquáticos</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Suporte</h4>
+                    <ul>
+                        <li><a href="#">Central de Ajuda</a></li>
+                        <li><a href="#">Contato</a></li>
+                        <li><a href="#">Termos de Uso</a></li>
+                        <li><a href="#">Privacidade</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ExoticCare. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - ExoticCare Especialista</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="dashboard-header">
+        <div class="container">
+            <div class="nav">
+                <div class="logo">
+                    <h1>ExoticCare</h1>
+                    <span class="dashboard-title">Área do Especialista</span>
+                </div>
+                <div class="user-menu">
+                    <span>Dr. Marina Silva</span>
+                    <button class="btn-secondary" onclick="logout()">Sair</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <nav class="sidebar-nav">
+            <a href="#dashboard" class="nav-item active" onclick="showSection('dashboard')">
+                <span class="icon">📊</span>
+                Dashboard
+            </a>
+            <a href="#agenda" class="nav-item" onclick="showSection('agenda')">
+                <span class="icon">📅</span>
+                Agenda
+            </a>
+            <a href="#wallet" class="nav-item" onclick="showSection('wallet')">
+                <span class="icon">💰</span>
+                Carteira
+            </a>
+            <a href="#profile" class="nav-item" onclick="showSection('profile')">
+                <span class="icon">👤</span>
+                Perfil
+            </a>
+            <a href="#services" class="nav-item" onclick="showSection('services')">
+                <span class="icon">🐾</span>
+                Serviços
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="content-section active">
+            <div class="section-header">
+                <h2>Dashboard</h2>
+                <p>Visão geral das suas atividades</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">📅</div>
+                    <div class="stat-content">
+                        <h3>12</h3>
+                        <p>Serviços este mês</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">💰</div>
+                    <div class="stat-content">
+                        <h3>R$ 2.450</h3>
+                        <p>Ganhos este mês</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">⭐</div>
+                    <div class="stat-content">
+                        <h3>4.9</h3>
+                        <p>Avaliação média</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-content">
+                        <h3>8</h3>
+                        <p>Clientes ativos</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <h3>Próximos Serviços</h3>
+                    <div class="service-list">
+                        <div class="service-item">
+                            <div class="service-info">
+                                <h4>Cuidado com Iguana</h4>
+                                <p>João Silva - Hoje, 14:00</p>
+                            </div>
+                            <span class="service-status pending">Pendente</span>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-info">
+                                <h4>Consulta Cobra</h4>
+                                <p>Maria Santos - Amanhã, 10:00</p>
+                            </div>
+                            <span class="service-status confirmed">Confirmado</span>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-info">
+                                <h4>Cuidado Tartaruga</h4>
+                                <p>Pedro Costa - 15/12, 16:00</p>
+                            </div>
+                            <span class="service-status confirmed">Confirmado</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-card">
+                    <h3>Avaliações Recentes</h3>
+                    <div class="review-list">
+                        <div class="review-item">
+                            <div class="review-header">
+                                <span class="reviewer">Ana Costa</span>
+                                <span class="rating">⭐⭐⭐⭐⭐</span>
+                            </div>
+                            <p>"Excelente profissional! Cuidou muito bem da minha iguana."</p>
+                        </div>
+                        <div class="review-item">
+                            <div class="review-header">
+                                <span class="reviewer">Carlos Lima</span>
+                                <span class="rating">⭐⭐⭐⭐⭐</span>
+                            </div>
+                            <p>"Muito conhecimento e cuidado com minha cobra. Recomendo!"</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Agenda Section -->
+        <section id="agenda" class="content-section">
+            <div class="section-header">
+                <h2>Agenda</h2>
+                <p>Gerencie seus compromissos</p>
+            </div>
+
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    <button class="btn-secondary" onclick="previousMonth()">‹</button>
+                    <h3 id="currentMonth">Dezembro 2024</h3>
+                    <button class="btn-secondary" onclick="nextMonth()">›</button>
+                </div>
+                
+                <div class="calendar-grid">
+                    <div class="calendar-day header">Dom</div>
+                    <div class="calendar-day header">Seg</div>
+                    <div class="calendar-day header">Ter</div>
+                    <div class="calendar-day header">Qua</div>
+                    <div class="calendar-day header">Qui</div>
+                    <div class="calendar-day header">Sex</div>
+                    <div class="calendar-day header">Sáb</div>
+                    
+                    <!-- Calendar days will be generated by JavaScript -->
+                </div>
+            </div>
+
+            <div class="appointments-list">
+                <h3>Compromissos de Hoje</h3>
+                <div class="appointment-item">
+                    <div class="appointment-time">14:00</div>
+                    <div class="appointment-details">
+                        <h4>Cuidado com Iguana</h4>
+                        <p>João Silva - Rua das Flores, 123</p>
+                        <p>Telefone: (11) 99999-9999</p>
+                    </div>
+                    <div class="appointment-actions">
+                        <button class="btn-primary btn-small">Iniciar</button>
+                        <button class="btn-secondary btn-small">Contato</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Wallet Section -->
+        <section id="wallet" class="content-section">
+            <div class="section-header">
+                <h2>Carteira</h2>
+                <p>Gerencie seus ganhos e pagamentos</p>
+            </div>
+
+            <div class="wallet-summary">
+                <div class="balance-card">
+                    <h3>Saldo Disponível</h3>
+                    <div class="balance-amount">R$ 1.250,00</div>
+                    <button class="btn-primary">Sacar</button>
+                </div>
+                <div class="balance-card">
+                    <h3>Pagamentos Pendentes</h3>
+                    <div class="balance-amount pending">R$ 680,00</div>
+                    <p class="balance-note">Liberação em 2 dias</p>
+                </div>
+            </div>
+
+            <div class="transactions">
+                <h3>Histórico de Transações</h3>
+                <div class="transaction-list">
+                    <div class="transaction-item">
+                        <div class="transaction-info">
+                            <h4>Serviço - João Silva</h4>
+                            <p>Cuidado com Iguana - Plano Semanal</p>
+                            <span class="transaction-date">10/12/2024</span>
+                        </div>
+                        <div class="transaction-amount positive">+R$ 500,00</div>
+                        <div class="transaction-status completed">Concluído</div>
+                    </div>
+                    <div class="transaction-item">
+                        <div class="transaction-info">
+                            <h4>Serviço - Maria Santos</h4>
+                            <p>Consulta Cobra - Plano Diário</p>
+                            <span class="transaction-date">08/12/2024</span>
+                        </div>
+                        <div class="transaction-amount positive">+R$ 80,00</div>
+                        <div class="transaction-status completed">Concluído</div>
+                    </div>
+                    <div class="transaction-item">
+                        <div class="transaction-info">
+                            <h4>Serviço - Pedro Costa</h4>
+                            <p>Cuidado Tartaruga - Plano Mensal</p>
+                            <span class="transaction-date">05/12/2024</span>
+                        </div>
+                        <div class="transaction-amount positive">+R$ 1.800,00</div>
+                        <div class="transaction-status pending">Pendente</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Profile Section -->
+        <section id="profile" class="content-section">
+            <div class="section-header">
+                <h2>Perfil Profissional</h2>
+                <p>Gerencie suas informações e certificações</p>
+            </div>
+
+            <div class="profile-form">
+                <div class="form-section">
+                    <h3>Informações Pessoais</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="profileName">Nome Completo</label>
+                            <input type="text" id="profileName" value="Dr. Marina Silva">
+                        </div>
+                        <div class="form-group">
+                            <label for="profileEmail">Email</label>
+                            <input type="email" id="profileEmail" value="marina.silva@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="profilePhone">Telefone</label>
+                            <input type="tel" id="profilePhone" value="(11) 99999-9999">
+                        </div>
+                        <div class="form-group">
+                            <label for="profileSpecialty">Especialidade</label>
+                            <select id="profileSpecialty">
+                                <option value="reptil" selected>Répteis</option>
+                                <option value="ave">Aves Exóticas</option>
+                                <option value="mamifero">Mamíferos Exóticos</option>
+                                <option value="aquatico">Animais Aquáticos</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Qualificações</h3>
+                    <div class="form-group">
+                        <label for="profileBio">Biografia Profissional</label>
+                        <textarea id="profileBio" rows="4">Veterinária especializada em répteis com 8 anos de experiência. Mestrado em Medicina Veterinária pela USP.</textarea>
+                    </div>
+                    <div class="certifications">
+                        <h4>Certificações</h4>
+                        <div class="cert-item">
+                            <span class="cert-name">Medicina Veterinária - USP</span>
+                            <span class="cert-status verified">✓ Verificado</span>
+                        </div>
+                        <div class="cert-item">
+                            <span class="cert-name">Especialização em Répteis - FMVZ</span>
+                            <span class="cert-status verified">✓ Verificado</span>
+                        </div>
+                        <button class="btn-secondary">Adicionar Certificação</button>
+                    </div>
+                </div>
+
+                <button class="btn-primary">Salvar Alterações</button>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="content-section">
+            <div class="section-header">
+                <h2>Meus Serviços</h2>
+                <p>Configure seus preços e disponibilidade</p>
+            </div>
+
+            <div class="pricing-config">
+                <h3>Configuração de Preços</h3>
+                <div class="pricing-form">
+                    <div class="form-group">
+                        <label for="dailyPrice">Preço Diário</label>
+                        <input type="number" id="dailyPrice" value="80" min="0" step="5">
+                    </div>
+                    <div class="form-group">
+                        <label for="weeklyPrice">Preço Semanal</label>
+                        <input type="number" id="weeklyPrice" value="500" min="0" step="25">
+                    </div>
+                    <div class="form-group">
+                        <label for="monthlyPrice">Preço Mensal</label>
+                        <input type="number" id="monthlyPrice" value="1800" min="0" step="50">
+                    </div>
+                </div>
+            </div>
+
+            <div class="availability-config">
+                <h3>Disponibilidade</h3>
+                <div class="availability-grid">
+                    <div class="day-config">
+                        <label>
+                            <input type="checkbox" checked> Segunda-feira
+                        </label>
+                        <div class="time-inputs">
+                            <input type="time" value="08:00">
+                            <span>às</span>
+                            <input type="time" value="18:00">
+                        </div>
+                    </div>
+                    <div class="day-config">
+                        <label>
+                            <input type="checkbox" checked> Terça-feira
+                        </label>
+                        <div class="time-inputs">
+                            <input type="time" value="08:00">
+                            <span>às</span>
+                            <input type="time" value="18:00">
+                        </div>
+                    </div>
+                    <!-- More days... -->
+                </div>
+            </div>
+
+            <button class="btn-primary">Salvar Configurações</button>
+        </section>
+    </main>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>
