@@ -17,10 +17,10 @@ jobs:
     runs-on: ubuntu-latest
     
     env:
-      # --- A CORREÇÃO ESTÁ AQUI ---
-      # Colocamos o segredo entre aspas simples (' ') para garantir
-      # que nenhum caractere especial na senha quebre a string.
-      DATABASE_URL: '${{ secrets.DATABASE_URL }}'
+      # --- MUDANÇA CRUCIAL ---
+      # Construímos a URL a partir dos secrets individuais.
+      # Isso evita qualquer erro de formatação ou de caracteres especiais.
+      DATABASE_URL: "postgresql://${{ secrets.DB_USER }}:${{ secrets.DB_PASSWORD }}@${{ secrets.DB_HOST }}:${{ secrets.DB_PORT }}/${{ secrets.DB_NAME }}?pgbouncer=true"
 
     steps:
       - name: Checkout
