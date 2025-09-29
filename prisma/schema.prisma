@@ -1,10 +1,4 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
-// Este é o seu arquivo schema.prisma
+// Arquivo: prisma/schema.prisma
 
 generator client {
   provider = "prisma-client-js"
@@ -15,14 +9,90 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model specialists {
-  id         Int      @id @default(autoincrement())
-  name       String
-  rating     Float
-  reviews    Int
-  location   String
-  experience String
-  image      String
-  bio        String
-  badges     String[] @db.Text
+// Modelo para a tabela de Perfis (substitui a antiga 'specialists')
+model Profile {
+  id               String        @id @db.Uuid
+  full_name        String?
+  avatar_url       String?
+  role             String        @default("CLIENT")
+  bio              String?
+  location         String?
+  experience_years Int?
+  rating           Float?
+  reviews_count    Int?          @default(0)
+  specialties      String[]
+
+  // Relações com as outras tabelas
+  appointments_as_client     Appointment[] @relation("ClientAppointments")
+  appointments_as_specialist Appointment[] @relation("SpecialistAppointments")
+  reviews_as_author          Review[]      @relation("AuthorReviews")
+  reviews_as_specialist      Review[]      @relation("SpecialistReviews")
+  conversations_as_client    Conversation[] @relation("ClientConversations")
+  conversations_as_specialist Conversation[] @relation("SpecialistConversations")
+  messages                   Message[]
+
+  @@map("profiles") // Mapeia este modelo para a tabela 'profiles' no banco
+}
+
+// Modelo para a tabela de Agendamentos
+model Appointment {
+  id               BigInt    @id @default(autoincrement())
+  client_id        String    @db.Uuid
+  specialist_id    String    @db.Uuid
+  appointment_date DateTime  @db.Timestamptz
+  status           String    @default("PENDING")
+  price            Float     @db.Decimal
+  created_at       DateTime? @default(now()) @db.Timestamptz
+
+  client     Profile  @relation("ClientAppointments", fields: [client_id], references: [id])
+  specialist Profile  @relation("SpecialistAppointments", fields: [specialist_id], references: [id])
+  review     Review?
+
+  @@map("appointments")
+}
+
+// Modelo para a tabela de Avaliações
+model Review {
+  id             BigInt      @id @default(autoincrement())
+  appointment_id BigInt      @unique
+  author_id      String      @db.Uuid
+  specialist_id  String      @db.Uuid
+  rating         Int
+  comment        String?
+  created_at     DateTime?   @default(now()) @db.Timestamptz
+
+  appointment Appointment @relation(fields: [appointment_id], references: [id])
+  author      Profile     @relation("AuthorReviews", fields: [author_id], references: [id])
+  specialist  Profile     @relation("SpecialistReviews", fields: [specialist_id], references: [id])
+
+  @@map("reviews")
+}
+
+// Modelo para a tabela de Conversas
+model Conversation {
+  id            BigInt    @id @default(autoincrement())
+  client_id     String    @db.Uuid
+  specialist_id String    @db.Uuid
+  created_at    DateTime? @default(now()) @db.Timestamptz
+
+  client     Profile   @relation("ClientConversations", fields: [client_id], references: [id])
+  specialist Profile   @relation("SpecialistConversations", fields: [specialist_id], references: [id])
+  messages   Message[]
+
+  @@unique([client_id, specialist_id])
+  @@map("conversations")
+}
+
+// Modelo para a tabela de Mensagens
+model Message {
+  id              BigInt       @id @default(autoincrement())
+  conversation_id BigInt
+  sender_id       String       @db.Uuid
+  content         String
+  created_at      DateTime?    @default(now()) @db.Timestamptz
+
+  conversation Conversation @relation(fields: [conversation_id], references: [id])
+  sender       Profile      @relation(fields: [sender_id], references: [id])
+
+  @@map("messages")
 }
