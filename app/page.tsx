@@ -23,93 +23,37 @@ import {
   Target,
   CalendarDays,
   BarChart3,
-  Turtle, // Ícone corrigido para Répteis
+  Turtle,
 } from "lucide-react"
 import Link from "next/link"
 
-export default function HomePage() {
-  // Array de especialistas agora com mais opções, incluindo Belo Horizonte
-  const specialists = [
-    {
-      id: "1",
-      name: "Dr. Ana Reptiliana",
-      rating: 4.9,
-      reviews: 127,
-      price: "R$ 150",
-      location: "Vila Madalena, SP",
-      experience: "8 anos",
-      education: "Veterinária - USP",
-      specialties: ["Répteis", "Anfíbios"],
-      image: "/woman-smiling-dog.png",
-      badges: ["Veterinária", "Certificado IBAMA", "Emergência 24h"],
-    },
-    {
-      id: "2",
-      name: "Carlos Primata",
-      rating: 4.8,
-      reviews: 89,
-      price: "R$ 200",
-      location: "Copacabana, RJ",
-      experience: "12 anos",
-      education: "Biólogo - UFRJ",
-      specialties: ["Primatas", "Mamíferos Exóticos"],
-      image: "/man-with-golden-retriever.jpg",
-      badges: ["Biólogo", "Manejo Primatas", "Comportamento Animal"],
-    },
-    {
-      id: "3",
-      name: "Dra. Maria Aviária",
-      rating: 5.0,
-      reviews: 203,
-      price: "R$ 180",
-      location: "Bela Vista, SP",
-      experience: "10 anos",
-      education: "Veterinária - FMVZ",
-      specialties: ["Aves Exóticas", "Psitacídeos"],
-      image: "/woman-walking-small-dogs.jpg",
-      badges: ["Especialista Aves", "Cirurgia", "Nutrição Aviária"],
-    },
-    // --- NOVOS ESPECIALISTAS DE BELO HORIZONTE ---
-    {
-      id: "4",
-      name: "Dr. Lucas Ferreira",
-      rating: 4.9,
-      reviews: 95,
-      price: "R$ 160",
-      location: "Savassi, Belo Horizonte",
-      experience: "7 anos",
-      education: "Veterinária - UFMG",
-      specialties: ["Répteis", "Serpentes"],
-      image: "/professional-veterinarian-man.jpg", // Usando imagem existente
-      badges: ["Veterinário", "Manejo de Peçonhentos"],
-    },
-    {
-      id: "5",
-      name: "Dra. Juliana Alves",
-      rating: 4.8,
-      reviews: 78,
-      price: "R$ 175",
-      location: "Buritis, Belo Horizonte",
-      experience: "9 anos",
-      education: "Bióloga - PUC Minas",
-      specialties: ["Anfíbios", "Aracnídeos"],
-      image: "/professional-veterinarian-woman-smiling.jpg", // Usando imagem existente
-      badges: ["Bióloga", "Especialista em Anfíbios"],
-    },
-    {
-      id: "6",
-      name: "Clínica ExoticPet BH",
-      rating: 5.0,
-      reviews: 150,
-      price: "R$ 220",
-      location: "Centro, Belo Horizonte",
-      experience: "15 anos",
-      education: "Equipe Multidisciplinar",
-      specialties: ["Aves Raras", "Mamíferos"],
-      image: "/professional-veterinarian-woman.jpg", // Usando imagem existente
-      badges: ["Clínica 24h", "Cirurgia Especializada", "UTI"],
-    },
-  ];
+// --- NOVA FUNÇÃO PARA BUSCAR DADOS DO BANCO ---
+// Esta função será executada no servidor para buscar os dados da sua API,
+// que por sua vez, busca os dados no Supabase.
+async function getSpecialists() {
+  try {
+    // Quando em desenvolvimento, precisamos usar a URL completa. Em produção, o Next.js lida com isso.
+    // A opção { cache: 'no-store' } garante que os dados sejam sempre frescos do banco.
+    const res = await fetch('http://localhost:3000/api/specialists', { cache: 'no-store' });
+
+    if (!res.ok) {
+      // Se a API retornar um erro, nós o exibimos no console.
+      console.error("Falha ao buscar dados da API:", await res.text());
+      return []; // Retorna um array vazio para não quebrar a página.
+    }
+    
+    return res.json();
+  } catch (error) {
+    console.error("Erro de conexão ao buscar especialistas:", error);
+    return []; // Retorna um array vazio em caso de erro de rede.
+  }
+}
+
+
+export default async function HomePage() {
+  // --- BUSCANDO OS DADOS REAIS ---
+  // A lista de especialistas agora vem diretamente do seu banco de dados!
+  const specialists = await getSpecialists();
 
   return (
     <div className="min-h-screen bg-background">
@@ -236,7 +180,8 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {specialists.map((specialist) => (
+            {/* O .map agora usa a variável 'specialists' que vem do banco de dados */}
+            {specialists.map((specialist: any) => (
               <Card key={specialist.id} className="hover:shadow-lg transition-shadow cursor-pointer">
                 <CardHeader className="pb-3">
                   <div className="flex items-start gap-3">
@@ -245,7 +190,7 @@ export default function HomePage() {
                       <AvatarFallback>
                         {specialist.name
                           .split(" ")
-                          .map((n) => n[0])
+                          .map((n: string) => n[0])
                           .join("")}
                       </AvatarFallback>
                     </Avatar>
@@ -254,7 +199,7 @@ export default function HomePage() {
                       <div className="flex items-center gap-1 mb-1">
                         <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                         <span className="font-medium">{specialist.rating}</span>
-                        <span className="text-muted-foreground text-sm">({specialist.reviews})</span>
+                        <span className="text-muted-foreground text-sm">({specialist.reviews} reviews)</span>
                       </div>
                       <div className="flex items-center gap-1 text-sm text-muted-foreground mb-1">
                         <MapPin className="h-3 w-3" />
@@ -272,7 +217,7 @@ export default function HomePage() {
                 </CardHeader>
                 <CardContent className="pt-0">
                   <div className="flex flex-wrap gap-1 mb-3">
-                    {specialist.badges.map((badge, i) => (
+                    {specialist.badges.map((badge: string, i: number) => (
                       <Badge key={i} variant="secondary" className="text-xs">
                         {badge}
                       </Badge>
@@ -280,7 +225,7 @@ export default function HomePage() {
                   </div>
                   <div className="mb-3">
                     <div className="text-sm font-medium mb-1">Especialidades:</div>
-                    <div className="text-sm text-muted-foreground">{specialist.specialties.join(", ")}</div>
+                    <div className="text-sm text-muted-foreground">{specialist.specialties ? specialist.specialties.join(", ") : 'Não informado'}</div>
                   </div>
                   <div className="flex items-center justify-between">
                     <div>
@@ -317,7 +262,7 @@ export default function HomePage() {
         </div>
       </section>
       
-      {/* ... O resto do código continua igual ... */}
+      {/* O resto do seu código continua igual... */}
       <section className="py-16 px-4">
         <div className="container max-w-6xl mx-auto">
           <div className="text-center mb-12">
