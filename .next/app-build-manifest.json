@@ -1,0 +1,69 @@
+{
+  "pages": {
+    "/_not-found/page": [
+      "static/chunks/webpack-0aa33f5f5e6a6187.js",
+      "static/chunks/fd9d1056-f9f33dc1c3f8eb7a.js",
+      "static/chunks/117-aca190ae95eda3c5.js",
+      "static/chunks/main-app-4018049bbd5ce575.js",
+      "static/chunks/app/_not-found/page-e0c2c5bbd028b87a.js"
+    ],
+    "/layout": [
+      "static/chunks/webpack-0aa33f5f5e6a6187.js",
+      "static/chunks/fd9d1056-f9f33dc1c3f8eb7a.js",
+      "static/chunks/117-aca190ae95eda3c5.js",
+      "static/chunks/main-app-4018049bbd5ce575.js",
+      "static/css/13259dc9ccfa6acd.css",
+      "static/css/41b01c3c658a2467.css",
+      "static/chunks/app/layout-20806e238efcd0fc.js"
+    ],
+    "/loading": [
+      "static/chunks/webpack-0aa33f5f5e6a6187.js",
+      "static/chunks/fd9d1056-f9f33dc1c3f8eb7a.js",
+      "static/chunks/117-aca190ae95eda3c5.js",
+      "static/chunks/main-app-4018049bbd5ce575.js",
+      "static/chunks/app/loading-4fe98d3e7baa0c87.js"
+    ],
+    "/specialist/[id]/page": [
+      "static/chunks/webpack-0aa33f5f5e6a6187.js",
+      "static/chunks/fd9d1056-f9f33dc1c3f8eb7a.js",
+      "static/chunks/117-aca190ae95eda3c5.js",
+      "static/chunks/main-app-4018049bbd5ce575.js",
+      "static/chunks/318-2b453c0039bba42c.js",
+      "static/chunks/app/specialist/[id]/page-11c6b2008a63fa31.js"
+    ],
+    "/page": [
+      "static/chunks/webpack-0aa33f5f5e6a6187.js",
+      "static/chunks/fd9d1056-f9f33dc1c3f8eb7a.js",
+      "static/chunks/117-aca190ae95eda3c5.js",
+      "static/chunks/main-app-4018049bbd5ce575.js",
+      "static/chunks/318-2b453c0039bba42c.js",
+      "static/chunks/app/page-f698d9f712b42f5f.js"
+    ],
+    "/specialist-dashboard/page": [
+      "static/chunks/webpack-0aa33f5f5e6a6187.js",
+      "static/chunks/fd9d1056-f9f33dc1c3f8eb7a.js",
+      "static/chunks/117-aca190ae95eda3c5.js",
+      "static/chunks/main-app-4018049bbd5ce575.js",
+      "static/chunks/318-2b453c0039bba42c.js",
+      "static/chunks/58-de3529f4d576f5b3.js",
+      "static/chunks/app/specialist-dashboard/page-ea0482d70520ebfd.js"
+    ],
+    "/specialist-login/page": [
+      "static/chunks/webpack-0aa33f5f5e6a6187.js",
+      "static/chunks/fd9d1056-f9f33dc1c3f8eb7a.js",
+      "static/chunks/117-aca190ae95eda3c5.js",
+      "static/chunks/main-app-4018049bbd5ce575.js",
+      "static/chunks/318-2b453c0039bba42c.js",
+      "static/chunks/58-de3529f4d576f5b3.js",
+      "static/chunks/app/specialist-login/page-46fc7a215c96c7df.js"
+    ],
+    "/checkout/page": [
+      "static/chunks/webpack-0aa33f5f5e6a6187.js",
+      "static/chunks/fd9d1056-f9f33dc1c3f8eb7a.js",
+      "static/chunks/117-aca190ae95eda3c5.js",
+      "static/chunks/main-app-4018049bbd5ce575.js",
+      "static/chunks/318-2b453c0039bba42c.js",
+      "static/chunks/app/checkout/page-3117dd18a9ae19d2.js"
+    ]
+  }
+}
