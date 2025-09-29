@@ -10,6 +10,7 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  // 🚀 Agora sem "output: export", permitindo SSR normalmente
 }
 
-export default nextConfig
+export default nextConfig;
